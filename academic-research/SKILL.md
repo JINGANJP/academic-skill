@@ -11,6 +11,8 @@ Use this skill as a staged research agent, not as a generic writing assistant. T
 
 The core rule is: learn the field first, narrow the evidence second, generate and validate ideas third, and only then write. Do not skip field learning, do not invent citations, and do not present an idea as viable until it has passed a feasibility screen.
 
+This skill is written for Codex, but the research protocol is portable. When adapting the workflow to another agent platform, use [references/universal-agent-spec.md](references/universal-agent-spec.md) as the platform-neutral operating contract, then use [references/agent-prompt-pack.md](references/agent-prompt-pack.md) to paste the workflow into that agent's system, developer, or task prompt. Use [references/agent-portability.md](references/agent-portability.md) to map the workflow onto the agent's real tool limits.
+
 ## Triggering Guidance
 
 Treat requests as high-confidence matches when they combine an academic artifact with a domain keyword or subfield keyword. This applies to direct English terminology, translated terminology, and bilingual phrasing. Examples include:
@@ -194,6 +196,9 @@ If the user asks for only one stage, complete that stage cleanly and stop.
 - Read [references/idea-validation.md](references/idea-validation.md) for novelty screening, feasibility checks, and domain-specific validation criteria.
 - Read [references/review-workflows.md](references/review-workflows.md) for literature synthesis, comparison matrices, and research-gap derivation.
 - Read [references/citation-and-writing.md](references/citation-and-writing.md) for real-citation discipline, evidence traceability, and section-structure rules.
+- Read [references/universal-agent-spec.md](references/universal-agent-spec.md) when the workflow needs to run outside Codex, or when another agent needs a platform-neutral research contract.
+- Read [references/agent-prompt-pack.md](references/agent-prompt-pack.md) when you need ready-to-paste prompts for Claude Code, chat-based agents, or other general-purpose assistants.
+- Read [references/agent-portability.md](references/agent-portability.md) when the target agent has different browsing, file, code-execution, or memory capabilities.
 - Read [references/chinese-academic-writing.md](references/chinese-academic-writing.md) when the output language is Chinese or when the user wants more natural Chinese scholarly prose.
 - Read [references/chinese-thesis-style.md](references/chinese-thesis-style.md) when the user is writing a Chinese undergraduate thesis, masters thesis, doctoral dissertation, proposal, or long-form chapter.
 - Read [references/chinese-journal-style.md](references/chinese-journal-style.md) when the user wants Chinese CSSCI-style, Chinese core-journal-style, article-style, or more compressed publishable prose.
