@@ -1,0 +1,4 @@
+interface:
+  display_name: "Academic Research"
+  short_description: "Multilingual research, idea validation, and paper drafting"
+  default_prompt: "Use $academic-research to research a field in Chinese or English, validate 3 ideas, and draft a citation-grounded paper."
