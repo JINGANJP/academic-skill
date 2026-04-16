@@ -6,13 +6,15 @@ Use this file to adapt the academic-research workflow to agents with different t
 
 The workflow stays the same. What changes is how much of it can be executed directly inside the target agent.
 
+The portability rule is simple: choose the lightest viable execution mode for the target agent and the current task.
+
 ## Capability Mapping
 
 ### Full Agent: web plus files plus code execution
 
 Examples: coding agents with browsing, repository access, and terminal execution.
 
-Use the full workflow:
+Use the light, standard, or long-thesis workflow as needed:
 
 - browse for literature and datasets
 - inspect repository or benchmark code when relevant
@@ -49,18 +51,22 @@ If browsing is unavailable, state the limitation explicitly and downgrade the ta
 
 ## Adaptation Rules
 
+- If the task is small, do not imitate a thesis-scale workflow.
 - If the agent cannot browse, remove any promise of literature verification.
 - If the agent cannot inspect files or repositories, treat code feasibility as provisional.
 - If the agent cannot maintain persistent memory, restate the active citation ledger and idea shortlist in every major continuation prompt.
 - If the agent has a short context window, keep the field memo compact and summarize references in a consistent short schema.
+- If the user already has a fixed topic, validate that topic instead of forcing a fresh ideation stage.
+- If the task does not need new data, do not introduce crawler or data-collection steps.
 
 ## Minimal Continuation State
 
 When moving between prompts or platforms, carry forward only:
 
 - chosen discipline and subfield
-- target artifact and language
-- 3 surviving ideas or the selected idea
+- target artifact, language, and scope
+- selected mode: light support, standard project, or long thesis
+- surviving idea shortlist or the selected idea
 - field memo
 - retained literature set
 - citation ledger

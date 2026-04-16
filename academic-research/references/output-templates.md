@@ -1,9 +1,23 @@
 # Output Templates
 
-## Three-Idea Menu
+## Scope Alignment Card
 
 ```text
-Idea 1:
+Task type:
+Field and subfield:
+Target output:
+Target language:
+Target audience or venue:
+Target length:
+Current materials the user already has:
+Method or evidence expectations:
+Main uncertainties that need user confirmation:
+```
+
+## Direction Shortlist
+
+```text
+Option 1:
 - Question:
 - Contribution:
 - Likely data:
@@ -11,7 +25,7 @@ Idea 1:
 - Main risk:
 - Why viable:
 
-Idea 2:
+Option 2:
 - Question:
 - Contribution:
 - Likely data:
@@ -19,7 +33,7 @@ Idea 2:
 - Main risk:
 - Why viable:
 
-Idea 3:
+Option 3:
 - Question:
 - Contribution:
 - Likely data:
@@ -31,7 +45,7 @@ Idea 3:
 ## Evidence Pack
 
 ```text
-Chosen idea:
+Chosen direction:
 Working title:
 Target field and subfield:
 Key references:
@@ -45,6 +59,47 @@ Key references:
 Likely datasets or materials:
 Evaluation or empirical strategy:
 Main risks:
+```
+
+## Thesis Project Tracker
+
+```text
+Project type:
+Total target length:
+Current stage:
+Completed modules:
+Next module:
+Reference base status:
+Data status:
+Open risks:
+```
+
+## Chapter Or Section Plan
+
+```text
+Module:
+Goal:
+Target length:
+Core claim:
+Key references:
+Needed data or materials:
+Method or analytical route:
+Main risks:
+Definition of done:
+```
+
+## Data Note
+
+```text
+Source:
+Coverage:
+Collection method:
+Time range:
+Fields collected:
+Raw size:
+Cleaned size:
+Cleaning steps:
+Main limitations:
 ```
 
 ## Paper Summary Card
@@ -124,6 +179,7 @@ Recommendation:
 - Shorten long sentences when they combine more than one claim.
 - Remove unsupported evaluative language.
 - Preserve hedging when the evidence is limited.
+- Do not use elegant wording to hide weak methods, thin data, or missing references.
 
 ## Chinese Literature Review Pattern
 
@@ -181,4 +237,15 @@ Argumentative task:
 Core claim:
 Key supporting reference or evidence:
 Why this changes or sharpens the debate:
+```
+
+## Module Quality Check
+
+```text
+Target length met:
+Reference support adequate:
+Evidence or data adequate:
+Method or argument convincing:
+Major limitations surfaced:
+Ready for integration:
 ```

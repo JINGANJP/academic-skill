@@ -4,6 +4,8 @@
 
 Use this reference after initial field learning. The purpose is to prevent weak or unexecutable ideas from surviving just because they sound interesting.
 
+Do not force a large ideation exercise when the user already has a fixed topic or only needs validation of one direction.
+
 ## Validation Dimensions
 
 Score each candidate idea on these dimensions:
@@ -66,7 +68,7 @@ Check:
 
 ## Survivor Format
 
-Each surviving idea should be reported as:
+Each surviving idea should be reported as compactly as the task allows:
 
 ```text
 Idea title:
@@ -81,6 +83,8 @@ Main implementation risk:
 Why it remains viable:
 ```
 
+When the user already has a chosen topic, use the same schema to validate that topic instead of generating extra alternatives.
+
 ## Ranking Heuristic
 
 Prefer ideas that satisfy all of the following:
@@ -90,3 +94,9 @@ Prefer ideas that satisfy all of the following:
 - realistic execution path
 - clear evaluation logic
 - academically meaningful even if results are mixed
+
+## User Participation Rule
+
+If more than one viable direction remains and the choice would meaningfully affect the paper, involve the user before drafting.
+
+If the user has clearly authorized autonomous continuation, choose the strongest direction and explain why.

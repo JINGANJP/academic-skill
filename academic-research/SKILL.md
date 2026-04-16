@@ -1,205 +1,312 @@
 ---
 name: academic-research
-description: Multilingual, domain-triggered academic research and paper-writing workflow for requests in English, Chinese, bilingual Chinese-English, or other languages about economics, finance, econometrics, computer science, AI, machine learning, systems, medicine, clinical research, public health, psychology, sociology, management, law, education, or other scholarly fields. Use when Codex must research a field before writing, study canonical and frontier literature, filter low-value sources, generate and validate research ideas, collect real references, summarize each cited work, plan data and experiments, and draft thesis or paper sections with real citations and academic structure.
+description: Interactive academic research and writing workflow for scholarly tasks in English, Chinese, bilingual Chinese-English, or other languages. Use when Codex must align closely with the user's target output, learn the field, collect sufficient references, strengthen methods or empirical design, gather or clean data when needed, and draft papers, theses, proposals, literature reviews, or chapter-level outputs without rushing or fabricating evidence.
 ---
 
 # Academic Research
 
 ## Overview
 
-Use this skill as a staged research agent, not as a generic writing assistant. The skill should activate when the user asks for topic design, idea generation, literature review, proposal writing, paper drafting, experiment planning, dataset selection, reference collection, or citation-grounded scholarly writing in a specific discipline, regardless of whether the request is written in English, Chinese, or another language.
+Use this skill as an interactive academic production workflow, not as a generic text generator.
 
-The core rule is: learn the field first, narrow the evidence second, generate and validate ideas third, and only then write. Do not skip field learning, do not invent citations, and do not present an idea as viable until it has passed a feasibility screen.
+The goal is not merely to produce something that looks like a paper. The goal is to help the user produce work that is better aligned with their real target:
 
-This skill is written for Codex, but the research protocol is portable. When adapting the workflow to another agent platform, use [references/universal-agent-spec.md](references/universal-agent-spec.md) as the platform-neutral operating contract, then use [references/agent-prompt-pack.md](references/agent-prompt-pack.md) to paste the workflow into that agent's system, developer, or task prompt. Use [references/agent-portability.md](references/agent-portability.md) to map the workflow onto the agent's real tool limits.
+- the right artifact
+- the right language and style
+- enough words for the assignment
+- enough references for the scale of the task
+- enough data, experiments, or empirical support to be convincing
+- enough user feedback along the way that the final output does not drift
 
-## Triggering Guidance
+This skill should bias toward depth, sufficiency, and traceability. It should never rush to a polished-looking but under-supported result.
 
-Treat requests as high-confidence matches when they combine an academic artifact with a domain keyword or subfield keyword. This applies to direct English terminology, translated terminology, and bilingual phrasing. Examples include:
+This skill is written for Codex, but the workflow is portable. When adapting it to another agent platform, use [references/universal-agent-spec.md](references/universal-agent-spec.md) as the platform-neutral contract, then use [references/agent-prompt-pack.md](references/agent-prompt-pack.md) for ready-to-paste prompts. Use [references/agent-portability.md](references/agent-portability.md) to adjust the workflow to the target agent's real tool limits.
 
-- disciplines such as economics, finance, econometrics, accounting, computer science, machine learning, NLP, systems, cybersecurity, medicine, oncology, radiology, epidemiology, public health, psychology, sociology, education, management, political science, or law
-- translated or localized discipline terms, such as Chinese-language subject names and task names that refer to the same scholarly fields
-- artifacts such as paper, thesis, dissertation, proposal, related work, literature review, experiment design, dataset, benchmark, hypothesis, identification strategy, robustness, ablation, peer review, or citations
-- translated artifact names, such as paper-writing, topic selection, literature review, reference collection, experiment design, or method comparison expressed in another language
-- intents such as find a topic, propose ideas, verify novelty, read papers, summarize literature, collect references, or draft an academic section
+## When To Use This Skill
 
-If the request is about a scholarly deliverable in a named field, use this skill even if the user does not explicitly say "academic writing".
+Use this skill when the user asks for any of the following in a named scholarly field or academic context:
+
+- thesis, dissertation, proposal, paper, literature review, related work, chapter draft
+- topic selection, research idea generation, novelty checking, method planning
+- experiment design, empirical design, dataset selection, benchmark review
+- reference collection, annotated bibliography, evidence pack, citation-grounded writing
+- Chinese academic writing, English academic writing, or bilingual academic outputs
+
+If the user only wants light polishing of text they already wrote, this skill can still help, but it should stay lightweight and not force the full workflow.
+
+## Core Principles
+
+- Align with the user's real target before doing deep work.
+- Increase user participation on important choices instead of silently making too many assumptions.
+- Learn the field deeply enough to support the requested output volume and quality.
+- Prefer fewer strong claims over many weak claims.
+- Do not fabricate citations, data availability, methods, experiments, or novelty.
+- Do not deliver thin writing just because the structure looks academic.
+- If the task is large, split it into manageable modules and finish them one by one.
+- If the evidence is thin, say so and strengthen the evidence instead of decorating the prose.
+- Treat every execution as a serious attempt to satisfy the user's actual academic need, not as a quick content-generation task.
+
+## Execution Modes
+
+Choose the lightest mode that can still satisfy the user's request.
+
+### Mode A: Light Support
+
+Use this when the user wants polishing, one section, a short memo, a focused literature note, or quick structure help.
+
+Default behavior:
+
+- align scope briefly
+- learn only the immediately relevant part of the field
+- collect only the sources needed for the current section or task
+- avoid unnecessary idea generation, thesis decomposition, or data collection
+- finish the requested unit cleanly and stop
+
+### Mode B: Standard Project
+
+Use this when the user wants a proposal, literature review, chapter draft, topic design, method planning, or a medium-size paper workflow.
+
+Default behavior:
+
+- align scope
+- build a sufficient literature base
+- validate the direction if needed
+- prepare an evidence pack
+- draft in one or several modules depending on size
+
+### Mode C: Long Thesis
+
+Use this when the user wants a masters thesis, doctoral dissertation, or another clearly large manuscript.
+
+Default behavior:
+
+- align scope and target length
+- build a broader literature and evidence base
+- decompose the manuscript into modules
+- draft and review one module at a time
+- maintain continuity notes across turns
+
+Do not use Mode C unless the task size actually requires it.
 
 ## Language Handling
 
-- Match the user's working language by default for explanations, idea menus, outlines, and drafts, unless the user requests another output language.
-- Search across languages when useful. For example, pair the user's language with canonical English discipline terms because many primary sources, datasets, and benchmarks are indexed in English even when the request is in Chinese.
-- Preserve original bibliographic metadata in the language used by the source. Do not translate author names, paper titles, journal titles, or dataset names inside citations unless the user explicitly asks for translated references.
-- When drafting in Chinese or another non-English language, keep the original technical term in parentheses at first mention if translation ambiguity could confuse the reader.
-- When sources exist in multiple languages, prefer the version that is most authoritative, most complete, and most citable.
-- If a user asks for bilingual output, keep the research logic shared but separate the final writing cleanly by language instead of mixing sentence by sentence.
-- When the requested output language is Chinese, use Chinese academic discourse conventions rather than literal translation from English argument structure.
-- For Chinese drafting, prefer compact but formal sentence flow, explicit paragraph topic sentences, and evidence-linked transitions equivalent to "existing studies show", "furthermore", "by contrast", "it is worth noting that", and "in sum".
-- For Chinese drafting, avoid awkward hybrid phrasing, direct English word order, inflated claims, and repetitive connectors.
-- For Chinese drafting, choose a Chinese style profile before writing: use the thesis profile for undergraduate, masters, doctoral, proposal, or long-form dissertation writing; use the journal profile for CSSCI-style, core-journal-style, article submission, or compressed publishable prose.
+- Match the user's working language by default unless the user asks for another output language.
+- Search across languages when useful, especially when the user works in Chinese but the most authoritative literature is in English.
+- Preserve bibliographic metadata in the source language. Do not translate author names, paper titles, journal titles, or dataset names inside citations unless the user explicitly asks.
+- When drafting in Chinese, use natural Chinese academic discourse rather than English sentence order translated into Chinese.
+- When the requested output language is Chinese, choose a style profile before drafting:
+  - thesis profile for undergraduate, masters, doctoral, proposal, or long-form chapter writing
+  - journal profile for CSSCI-style, core-journal-style, article submission, or compressed publishable prose
 
 ## Non-Negotiable Rules
 
-- Always browse for field learning, source verification, literature discovery, and citation checking when the user asks for domain knowledge, current literature, data sources, experiments, or references.
-- Prefer primary and authoritative sources: peer-reviewed papers, survey papers, handbooks, textbooks, official datasets, technical documentation, clinical guidelines, government or institutional data portals, and top-tier conference or journal pages.
-- Exclude noisy sources unless they are the only lead to a primary source. Low-value sources include SEO blogs, generic content farms, thin news rewrites, unattributed summaries, and papers with weak relevance or unclear credibility.
-- Never fabricate citations, author lists, venues, years, datasets, code repositories, metrics, trial registrations, or empirical claims.
-- Separate source-grounded statements from your synthesis. Use labels such as `Source-backed`, `Inference`, `Open question`, and `Needs verification` when the distinction matters.
-- Do not move from ideation to writing until the user has chosen one of the surviving ideas, unless the user explicitly asks for a fully autonomous choice.
-- When a field is high-stakes, especially medicine or public health, increase caution, prefer higher levels of evidence, and surface ethical, regulatory, or clinical limitations.
-- Do not confuse translation convenience with source verification. A translated summary is not a substitute for checking the underlying source.
+- Browse for field learning, literature checking, dataset discovery, and citation verification whenever the task depends on real domain knowledge or current sources.
+- Prefer primary and authoritative sources such as peer-reviewed papers, surveys, handbooks, textbooks, official datasets, technical documentation, clinical guidelines, government portals, and top-tier venues.
+- Never fabricate citations, author lists, venues, years, datasets, repositories, metrics, experiments, or empirical claims.
+- Separate source-backed statements from inference whenever the distinction matters.
+- Do not use a single rigid template for every field. Adapt the structure to the discipline.
+- Do not move ahead at full speed when the task contains hidden choices that materially affect the result.
+- Do not present an idea, method, dataset, or experiment plan as convincing until it has passed a feasibility check.
+- Do not pad weak work with empty wording to simulate depth.
+- Do not stop at a superficially polished stage if the user asked for a deeper or larger deliverable.
 
-## End-to-End Workflow
+## Default Workflow
 
-Follow these stages in order unless the user requests only one stage.
+Keep the workflow simple and interactive. Use the full version only when the task actually needs it.
 
-### Stage 1: Field Learning
+### Step 1: Align The Target
 
-Identify the exact discipline and subfield first. Build a compact field map before generating any ideas.
+Before deep research or drafting, confirm the real assignment and success criteria.
 
-Actions:
+Clarify or infer:
 
-1. Infer the subfield, research object, typical methods, common datasets, and expected paper structure.
-2. Browse authoritative sources to learn foundational knowledge and current frontiers, using multilingual queries when needed.
-3. Read classic or canonical works to understand the field's baseline assumptions.
-4. Read influential recent work to understand what the frontier is actually debating now.
-5. Build a short evidence memo covering:
-   - key questions in the field
-   - dominant methods
-   - common datasets or evidence sources
-   - recurring limitations
-   - writing norms in that discipline
-   - important cross-language terminology needed for later searches and drafting
+- field and subfield
+- target artifact
+- target language
+- target audience or venue
+- expected word count or page count
+- whether the user wants a full project or only one section
+- whether the task needs theory, experiment, empirical analysis, case study, or mixed methods
+- whether the user already has a topic, outline, data, references, or writing constraints
 
-Use [references/domain-learning.md](references/domain-learning.md) for source selection and browsing rules.
+When the scope is large or ambiguous, pause and involve the user early instead of guessing too much.
 
-### Stage 2: Noise Filtering
+### Step 2: Build A Sufficient Research Base
 
-Do not read everything. Curate.
+Learn the field before writing, but keep the process purposeful.
 
 Actions:
 
-1. Remove irrelevant, weak, duplicate, off-topic, or low-credibility materials.
-2. Keep sources that are canonical, methodologically influential, highly cited, top-venue, systematic, or directly aligned with the user's target problem.
-3. Explain why each retained source matters: theory, method, dataset, benchmark, critique, or frontier direction.
-4. Prefer a smaller clean set over a large noisy set.
+1. Build a compact field memo from authoritative sources.
+2. Identify canonical works and recent frontier work.
+3. Filter out weak, duplicate, or low-value sources.
+4. Keep collecting literature until the retained set is sufficient for the requested task size and depth.
+5. Pay special attention to recent methods, current debates, benchmark practices, and evidence gaps so the final output is not outdated or generic.
 
-### Stage 3: Idea Generation and Validation
+For long or complex projects, maintain reusable working notes in the workspace when helpful, such as:
 
-Generate more ideas than you need, then screen aggressively. The final deliverable for this stage is exactly 3 viable ideas unless the user requests a different number.
+- field memo
+- annotated bibliography
+- citation ledger
+- method notes
+- chapter or section evidence maps
 
-Actions:
+These notes should make later drafting easier and reduce repeated searching.
 
-1. Propose a broad candidate set.
-2. Score each candidate for:
-   - novelty relative to visible literature
-   - data availability
-   - methodological feasibility
-   - experimental or empirical tractability
-   - code or implementation feasibility where relevant
-   - evaluation clarity
-   - academic value
-3. Kill weak ideas early.
-4. Keep only ideas that plausibly survive literature overlap and practical execution checks.
-5. Present 3 viable ideas, each with:
-   - title
-   - core question
-   - why it matters
-   - likely method
-   - likely data
-   - main risk
-   - why it appears viable
+Do not create extra workspace notes by default for small one-off tasks. Create them only when they will clearly improve a longer or more complex project.
 
-Use [references/idea-validation.md](references/idea-validation.md) for the scoring rubric and domain-specific feasibility checks.
+### Step 3: Validate The Research Direction
 
-Pause after presenting the 3 ideas and wait for the user's choice unless the user explicitly authorizes autonomous continuation.
+If the task involves topic selection, idea generation, method choice, experiment design, or empirical design, validate before drafting.
 
-### Stage 4: Evidence Pack After Idea Selection
+Check:
 
-Once the user selects an idea, collect the materials needed to support real writing.
+- literature overlap
+- novelty shape
+- data availability
+- method fit
+- execution cost
+- evaluation clarity
+- reproducibility
+- academic value
 
-Actions:
+When multiple viable directions remain, present the best options and involve the user in the choice instead of forcing a silent decision.
 
-1. Find relevant datasets, repositories, benchmarks, archives, or document corpora.
-2. Find real references that directly support the chosen problem, method, and positioning.
-3. Read each retained reference closely enough to summarize:
-   - the problem it studies
-   - the method or design it uses
-   - the main finding or claim
-   - its limitation
-   - why it matters for the chosen idea
-4. Build a citation ledger so every planned citation is traceable to a real source.
-5. Remove references that you could not verify or that turn out to be only weakly related.
+If the user already has a fixed topic or direction and is not asking for alternatives, keep this step minimal and validate the existing direction instead of generating extra options.
 
-Use [references/review-workflows.md](references/review-workflows.md) to compare sources and [references/citation-and-writing.md](references/citation-and-writing.md) for citation integrity.
+### Step 4: Strengthen Data And Evidence
 
-### Stage 5: Outline From Evidence
-
-Before full drafting, convert evidence into a paper plan.
+When the output depends on experiments, empirical analysis, or data-driven claims, explicitly assess whether the available evidence is strong enough.
 
 Actions:
 
-1. Infer the discipline-appropriate paper structure from the literature you reviewed.
-2. Build a section outline that matches the field. Examples:
-   - economics: question, theory or mechanism, identification, data, empirical strategy, results, robustness, conclusion
-   - computer science: problem, related work, method, experimental setup, results, ablations, limitations
-   - medicine: background, objective, methods, results, discussion, limitations, ethics, conclusion
-3. Assign evidence to sections so each major claim has support.
-4. Note which claims are established, which are proposed, and which remain speculative.
+1. Check whether existing data is sufficient in scale, coverage, and credibility.
+2. If data is insufficient, ask the user what data volume or coverage is expected.
+3. If appropriate and allowed, write collection scripts or crawlers to gather more data.
+4. Clean, normalize, and document the collected data before using it for argumentation.
+5. Report important limitations such as sampling bias, missing fields, access restrictions, licensing limits, or weak representativeness.
 
-### Stage 6: Academic Drafting
+Do not pretend that a thin dataset supports a strong empirical conclusion.
+Do not start writing crawlers or collection scripts unless the task genuinely needs more data and the user has indicated the expected scale or accepted the collection step.
 
-Draft only after the outline and evidence pack are ready.
+### Step 5: Draft In Modules, Not In One Giant Leap
 
-Requirements:
+For large writing tasks, especially theses, do not attempt to generate the entire work in one pass.
 
-- Follow academic paper conventions for the target discipline rather than using one universal template.
-- Keep the final draft in the user-requested language, while preserving citation metadata in verified source form.
-- Use real references only.
-- Cite sources only when you have actually examined enough of the source to know what it says.
-- Prefer synthesis over stitched summaries.
-- Keep academic tone precise, sober, and evidence-driven.
-- Preserve uncertainty where the evidence is incomplete.
+Use modular drafting:
 
-Use [references/output-templates.md](references/output-templates.md) for output shapes and [references/citation-and-writing.md](references/citation-and-writing.md) for section and citation discipline.
+1. break the project into chapters, sections, or other manageable units
+2. define the goal, evidence, and target length for each unit
+3. draft one unit at a time
+4. review and revise each unit before moving on
+5. integrate the units and do a global consistency pass at the end
 
-If the final draft is in Chinese, read [references/chinese-academic-writing.md](references/chinese-academic-writing.md) first, then choose one of these:
+For masters theses or similarly large outputs:
 
-- [references/chinese-thesis-style.md](references/chinese-thesis-style.md) for undergraduate, masters, doctoral, proposal, or chapter-style writing
-- [references/chinese-journal-style.md](references/chinese-journal-style.md) for CSSCI-style, core-journal-style, or article-submission writing
+- ask the user for the expected total word count or page count
+- ask whether the user wants the whole thesis, selected chapters, or only a proposal-level version
+- decompose the work into a practical sequence of smaller tasks
+- expect each major unit to still be substantial when needed, often several thousand words
+- keep a running outline and status tracker so the project can continue cleanly across turns
+
+### Step 6: Review Against The Real Requirement
+
+Before considering the task done, check the result against the user's actual quality bar.
+
+Minimum questions:
+
+- Is the word count or page count actually adequate?
+- Are the references sufficient for the scale of the task?
+- Are the methods, experiments, or empirical claims persuasive enough?
+- Is the data base large and credible enough for the conclusions being made?
+- Does the writing actually answer the user's assignment, not just the agent's preferred structure?
+- Are the strongest limitations still visible rather than hidden by smooth prose?
+
+If the answer is no, continue improving instead of pretending the job is finished.
+If the answer is yes and the user asked for only a limited deliverable, stop cleanly instead of expanding the task unnecessarily.
+
+## User Participation Checkpoints
+
+Increase user participation when the decision would significantly change the outcome.
+
+Default checkpoints:
+
+1. after scope alignment
+2. after topic or idea shortlist
+3. before large-scale data collection, crawling, or code-heavy empirical work
+4. after thesis decomposition or chapter plan
+5. after each major module in a long-form writing project
+
+Do not interrupt the user for trivial choices. Use checkpoints for high-impact decisions.
+
+If the user's request is narrow and clear, reduce checkpoints and keep momentum.
+
+## Long-Form Thesis Guidance
+
+Use this section when the user wants a masters thesis, doctoral dissertation, or another large academic manuscript.
+
+The default strategy is:
+
+1. determine the target length and deliverable scope
+2. build the thesis-level outline
+3. decide the writing order
+4. prepare chapter-level evidence packs
+5. draft chapter by chapter or section by section
+6. run cross-chapter checks for terminology, citations, argument consistency, and contribution framing
+7. assemble and revise the full manuscript
+
+Do not promise a strong large-scale thesis if the literature base, data base, or evidence plan is still thin.
+
+## Data Collection And Cleaning Guidance
+
+Use this section when the task requires more evidence than the user currently has.
+
+- Ask what scale of data is needed before collecting blindly.
+- Ask about source boundaries and compliance constraints when they matter.
+- Prefer legitimate, stable, documented sources.
+- If crawling is appropriate, write focused collection scripts rather than vague instructions.
+- After collection, perform basic cleaning and explain what was removed, normalized, or merged.
+- Keep a short data note covering source, date range, fields, size, and major limitations.
+
+## Reference Depth Expectations
+
+Reference sufficiency should scale with the task.
+
+- For a short section or focused memo, a compact but high-quality set may be enough.
+- For a literature review, proposal, thesis chapter, or full thesis, the literature base should be broader, deeper, and better organized.
+- When the project is long-running, create reusable reference notes if that will improve consistency and recall.
+- Learn not only the field's established literature but also recent frontier methods and debates, so the final output is not stale.
+
+Do not stop the learning process too early when the user clearly needs a more substantial academic product.
+Do not continue literature expansion once the source base is already sufficient for the current scoped deliverable.
+
+## Quality Standard
+
+This skill must resist three failure modes:
+
+- under-length writing
+- under-supported claims
+- under-developed methods, experiments, or empirical design
+
+The correct response to these failures is not prettier wording. The correct response is to strengthen the research base, data base, structure, and user alignment.
 
 ## Domain-Specific Expectations
 
-Adjust validation and writing to the field instead of forcing one template onto every problem.
-
-- Economics and finance: look for identification strategy, theoretical mechanism, data provenance, robustness checks, endogeneity concerns, and policy relevance.
-- Computer science and AI: look for benchmark fit, baseline choice, ablations, compute cost, code reproducibility, dataset licensing, and whether implementation is realistically runnable.
-- Medicine and public health: look for study design, inclusion criteria, endpoints, ethics, evidence level, guideline alignment, and whether the claim is observational or causal.
-- Social sciences: look for theory framing, construct validity, sampling, measurement quality, causal claims, and contextual limits.
-
-## Required Deliverables By Stage
-
-When the user asks for a full project, the skill should usually emit these deliverables in sequence:
-
-1. field memo
-2. filtered literature set
-3. 3 validated ideas
-4. evidence pack for the selected idea
-5. section outline
-6. draft with real citations
-
-If the user asks for only one stage, complete that stage cleanly and stop.
+- Economics and finance: check identification strategy, mechanism clarity, data provenance, robustness, endogeneity risk, and policy relevance.
+- Computer science and AI: check benchmark fit, baseline choice, dataset access, code feasibility, compute cost, ablations, and reproducibility.
+- Medicine and public health: check study design, endpoints, ethics, evidence level, data restrictions, and whether claims are observational or causal.
+- Social sciences: check theory framing, construct validity, sampling, measurement quality, contextual boundaries, and causal overreach.
 
 ## Reference Files
 
-- Read [references/domain-learning.md](references/domain-learning.md) for authoritative-source selection, canonical-vs-frontier balancing, and field-mapping workflow.
-- Read [references/idea-validation.md](references/idea-validation.md) for novelty screening, feasibility checks, and domain-specific validation criteria.
-- Read [references/review-workflows.md](references/review-workflows.md) for literature synthesis, comparison matrices, and research-gap derivation.
-- Read [references/citation-and-writing.md](references/citation-and-writing.md) for real-citation discipline, evidence traceability, and section-structure rules.
-- Read [references/universal-agent-spec.md](references/universal-agent-spec.md) when the workflow needs to run outside Codex, or when another agent needs a platform-neutral research contract.
-- Read [references/agent-prompt-pack.md](references/agent-prompt-pack.md) when you need ready-to-paste prompts for Claude Code, chat-based agents, or other general-purpose assistants.
-- Read [references/agent-portability.md](references/agent-portability.md) when the target agent has different browsing, file, code-execution, or memory capabilities.
+- Read [references/domain-learning.md](references/domain-learning.md) for source-selection and field-learning guidance.
+- Read [references/idea-validation.md](references/idea-validation.md) for feasibility screening and domain-specific idea checks.
+- Read [references/review-workflows.md](references/review-workflows.md) for literature synthesis and research-gap writing.
+- Read [references/citation-and-writing.md](references/citation-and-writing.md) for citation integrity and section discipline.
+- Read [references/universal-agent-spec.md](references/universal-agent-spec.md) when the workflow must run outside Codex.
+- Read [references/agent-prompt-pack.md](references/agent-prompt-pack.md) for ready-to-paste prompts for other agents.
+- Read [references/agent-portability.md](references/agent-portability.md) when the target agent has different browsing, file, execution, or memory limits.
 - Read [references/chinese-academic-writing.md](references/chinese-academic-writing.md) when the output language is Chinese or when the user wants more natural Chinese scholarly prose.
-- Read [references/chinese-thesis-style.md](references/chinese-thesis-style.md) when the user is writing a Chinese undergraduate thesis, masters thesis, doctoral dissertation, proposal, or long-form chapter.
-- Read [references/chinese-journal-style.md](references/chinese-journal-style.md) when the user wants Chinese CSSCI-style, Chinese core-journal-style, article-style, or more compressed publishable prose.
-- Read [references/output-templates.md](references/output-templates.md) for reusable output shapes covering idea menus, evidence packs, summaries, and draft sections.
+- Read [references/chinese-thesis-style.md](references/chinese-thesis-style.md) for Chinese undergraduate, masters, doctoral, proposal, or long-form thesis writing.
+- Read [references/chinese-journal-style.md](references/chinese-journal-style.md) for Chinese CSSCI-style, core-journal-style, article-style, or compressed publishable prose.
+- Read [references/output-templates.md](references/output-templates.md) for reusable templates covering planning, evidence packs, long-form decomposition, and drafting support.

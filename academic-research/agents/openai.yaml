@@ -1,4 +1,4 @@
 interface:
   display_name: "Academic Research"
-  short_description: "Multilingual research workflow with portable prompts for other agents"
-  default_prompt: "Use $academic-research to research a field, validate 3 ideas, draft a citation-grounded paper, or port the workflow to another agent."
+  short_description: "Interactive academic workflow that stays lightweight by default and goes deeper only when the task requires it"
+  default_prompt: "Use $academic-research to align the task, choose the lightest suitable workflow, build enough verified literature and evidence, and then draft a paper, thesis section, proposal, or literature review."

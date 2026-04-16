@@ -4,6 +4,42 @@
 
 Use this reference at the start of any discipline-specific request. The goal is to learn the field efficiently enough to make good downstream decisions without drowning in irrelevant material.
 
+The key rule is sufficiency, not exhaustiveness. Learn enough to support the current task well, then stop.
+
+## Depth Selection
+
+Choose the lightest scan that still fits the user's actual request.
+
+### Light scan
+
+Use for one section, one memo, light polishing with verification, or a narrow question.
+
+Typical goal:
+
+- establish basic terminology
+- find a few authoritative sources
+- confirm the local writing norm for the immediate task
+
+### Standard scan
+
+Use for proposals, literature reviews, chapter drafts, and topic validation.
+
+Typical goal:
+
+- map the subfield
+- identify canonical and recent work
+- capture methods, datasets, and major debates
+
+### Deep scan
+
+Use for thesis-scale projects, major research pivots, or when the first pass shows the evidence base is still thin.
+
+Typical goal:
+
+- build a broader retained literature base
+- track frontier methods and open questions in more detail
+- prepare reusable notes for later modules
+
 ## Source Priority
 
 Prefer sources in roughly this order:
@@ -28,7 +64,8 @@ A useful default is:
 - 3 to 5 canonical sources
 - 5 to 8 frontier sources
 
-Adjust upward only when the topic is broad.
+Adjust upward only when the topic is broad or the requested deliverable is large.
+Adjust downward for a narrow one-section task when fewer strong sources are enough.
 
 ## Discovery Workflow
 
@@ -38,6 +75,8 @@ Adjust upward only when the topic is broad.
 4. Search within those venues for recent influential papers.
 5. Track recurring datasets, methods, and debates.
 6. Stop when the field map stabilizes and new sources mostly repeat known patterns.
+
+Do not keep searching only to increase volume. Stop once the field map is stable and the current deliverable is well supported.
 
 ## Retention Rules
 
@@ -57,6 +96,8 @@ Drop a source when it is:
 - redundant with stronger sources
 - too old to represent the frontier when the frontier matters
 - too new and too thin to trust without corroboration
+
+Also drop sources that add volume without materially improving the current deliverable.
 
 ## Writing Norm Discovery
 
